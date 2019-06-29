@@ -1,0 +1,42 @@
+<!--pages/index/index.wxml-->
+<view class='container'>
+  <view class='container-top {{backImg}}'>
+    <view class='location'>
+      <text class='iconfont dibiao'></text>
+      <text class='location-place'>{{locationUrban}}</text>
+      <view class='update-time'>上次更新时间 {{updateTime}}</view>
+    </view>
+    <view class='weather'>
+      <text class='wea-temperature'>{{temperature}}</text>
+      <text class='wea-conditions'>{{conditions}} | <text class='wea-air'>空气{{air}}</text></text>
+      <text class='wea-wind'>{{wind}} {{num}}</text>
+    </view>
+    <view class='tips'>
+      <text class='tips-content'>{{content}}</text>
+    </view>
+  </view>
+  <view class='weather-info'>
+    <view class='weather-info-day'>
+      <view class='weather-info-left'>
+        <text class='today day-con'>今天</text>
+        <text class='today-weather day-wea'>{{todayWea}}</text>
+      </view>
+      <view class='weather-info-right'>
+        <text class='today-temperature day-t'>{{todayTem1}}~{{todayTem2}}</text>
+        <text class='iconfont iconsize {{todayIcon}}'></text>
+      </view>
+    </view>
+    <view class='weather-info-day'>
+      <view class='weather-info-left'>
+        <text class='tomorrow day-con'>明天</text>
+        <text class='tomorrow-weather day-wea'>{{tomorrowWea}}</text>
+      </view>
+      <view class='weather-info-right'>
+        <text class='tomorrow-temperature day-t'>{{tomorrowTem1}}~{{tomorrowTem2}}</text>
+        <text class='iconfont iconsize {{tomorrowIcon}}'></text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='container'></view>
