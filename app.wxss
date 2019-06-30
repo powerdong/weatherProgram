@@ -21,6 +21,7 @@
 
 .xiche:before {
   content: "\e623";
+  color: #A3CB38; 
 }
 
 .cheliang:before {
@@ -34,7 +35,7 @@
 
 .shachen:before {
   content: "\e629";
-  color: #808e9b;
+  color: #f6b93b;
 }
 
 .xiao:before {
@@ -43,6 +44,7 @@
 
 .wuran:before {
   content: "\e60f";
+  color: #CD6133;
 }
 
 .jiaotong:before {
@@ -51,6 +53,7 @@
 
 .yifu:before {
   content: "\e628";
+  color: #FF4757;
 }
 
 .xingli:before {
@@ -63,6 +66,7 @@
 
 .yao:before {
   content: "\e64d";
+  color: #F79F1F;
 }
 
 .yijia:before {
@@ -71,11 +75,12 @@
 
 .yun:before {
   content: "\e618";
-  color: #808e9b;
+  color: #ff9f43;
 }
 
 .yin:before {
   content: "\e619";
+  color: #57606f;
 }
 
 .qing:before {
@@ -86,12 +91,12 @@
 
 .yu:before {
   content: "\e61f";
-  color: #808e9b;
+  color: #2980b9;
 }
 
 .xue:before {
   content: "\e625";
-  color: #808e9b;
+  color: #7ed6df;
 }
 
 .fish:before {
@@ -104,6 +109,7 @@
 
 .jianshen:before {
   content: "\e653";
+  color: #0FBCF9;
 }
 
 .bizi:before {
@@ -112,11 +118,12 @@
 
 .taiyang:before {
   content: "\e7ed";
+  color: #FF4757;
 }
 
 .bingbao:before {
   content: "\e61a";
-  color: #808e9b;
+  color: #4834d4;
 }
 
 .dibiao:before {
@@ -125,12 +132,12 @@
 
 .wu:before {
   content: "\e627";
-  color: #808e9b;
+  color: #dfe4ea;
 }
 
 .lei:before {
   content: "\e62c";
-  color: #808e9b;
+  color: #ff7f50;
 }
 
 .iconsize{

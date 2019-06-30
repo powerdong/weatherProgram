@@ -1,0 +1,68 @@
+/* pages/place/index.wxss */
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background-clip: #ccc;
+  color: #444;
+}
+
+.search-con {
+  width: 100%;
+  height: 8%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #888;
+  padding: 20rpx 0 0 0;
+}
+
+.search {
+  width: 70%;
+  height: 70rpx;
+  margin-left: 20rpx;
+  border-radius: 20px;
+  background-color: #ccc;
+  padding: 0 30rpx;
+  font-size: 30rpx;
+  line-height: 70rpx;
+}
+
+.cancel {
+  height: 70rpx;
+  line-height: 70rpx;
+  margin-right: 33rpx;
+}
+
+.location, 
+.hot-location {
+  padding: 30rpx;
+}
+.place-group{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+.hot-place{
+  width: 30%;
+  height: 70rpx;
+  background-color: #ddd;
+  border-radius: 40rpx;
+  line-height: 70rpx;
+  text-align: center;
+  font-size: 30rpx;
+  margin-top: 16rpx;
+  color: #333;
+}
+
+.cityList{
+  position: absolute;
+  top: 116rpx;
+  width: 100%;
+  height: 100vh;
+  line-height: 90rpx;
+  box-sizing: border-box;
+  padding: 10rpx 30rpx;
+  font-size: 30rpx;
+  background-color: #fff;
+}
