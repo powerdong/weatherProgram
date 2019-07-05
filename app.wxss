@@ -15,8 +15,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.xiao:before {
+  content: "\e63b";
+  color: #2ed573;
+}
+.xingli:before {
+  content: "\e652";
+  color: #ff6348;
+}
+
 .yundong:before {
   content: "\e649";
+  color:#f1c40f;
 }
 
 .xiche:before {
@@ -24,31 +34,15 @@
   color: #A3CB38; 
 }
 
-.cheliang:before {
-  content: "\e62b";
-}
-
-.yueliang:before {
-  content: "\e6a0";
-  color: #ffd32a;
-}
-
 .shachen:before {
   content: "\e629";
   color: #f6b93b;
 }
 
-.xiao:before {
-  content: "\e63b";
-}
 
 .wuran:before {
   content: "\e60f";
   color: #CD6133;
-}
-
-.jiaotong:before {
-  content: "\e608";
 }
 
 .yifu:before {
@@ -56,21 +50,9 @@
   color: #FF4757;
 }
 
-.xingli:before {
-  content: "\e652";
-}
-
-.san:before {
-  content: "\e795";
-}
-
 .yao:before {
   content: "\e64d";
   color: #F79F1F;
-}
-
-.yijia:before {
-  content: "\e617";
 }
 
 .yun:before {
@@ -99,13 +81,6 @@
   color: #7ed6df;
 }
 
-.fish:before {
-  content: "\e603";
-}
-
-.kouhong:before {
-  content: "\e602";
-}
 
 .jianshen:before {
   content: "\e653";

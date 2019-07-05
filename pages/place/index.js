@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cityList:"",
+    cityList:[],
     inPlace:"",
     place: "上海",
     hotPlace: [{
@@ -51,6 +51,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(option) {
+    wx.setNavigationBarTitle({
+      title: '城市搜索'
+    })
     var self = this;
     self.setData({
       place: option.place
@@ -66,23 +69,24 @@ Page({
   exitPlace:function(e){
     var self = this;
     let inPlace = e.detail.value;
-    console.log(inPlace)
     self.setData({
       inPlace:inPlace,
     })
     wx.request({
-      url: 'https://apis.map.qq.com/ws/place/v1/search?boundary=region(全国)&',
+      url: 'https://search.heweather.net/find?key=baf8052894ad4601ac4193d229773158&',
       data: {
-        key:"LTBBZ-Q7JWF-WRJJE-JWXBR-W23TE-GWBQG",
-        keyword: e.detail.value
+        group:"cn",
+        number:"5",
+        location: e.detail.value
       },
       success: function(e) {
         self.setData({
-          cityList: e.data.data.length>0 ?  e.data.data[0].title : "请输入正确的城市名",
+          cityList: e.data.HeWeather6[0].status != "unknown location" ? e.data.HeWeather6[0].basic : [{location:"请输入正确的城市名"}],
         })
+          console.log(self.data.cityList);
       },
       fail: (e) => {
-        console.log(e)
+        // console.log(e)
       }
     })
 
@@ -90,9 +94,14 @@ Page({
   submitCity:function(e){
     let nowPlace = e.currentTarget.dataset.text;
     nowPlace = nowPlace.replace("市", "") || nowPlace.replace("区", "") ;
-    console.log(nowPlace);
     wx.navigateTo({
       url: '../index/index?nowPlace=' + nowPlace,
+    })
+  },
+
+  cancel:function(e){
+    this.setData({
+      inPlace : ""
     })
   },
   /**

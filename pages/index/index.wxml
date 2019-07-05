@@ -7,9 +7,10 @@
       <view class='update-time'>上次更新时间 {{updateTime}}</view>
     </view>
     <view class='weather'>
-      <text class='wea-temperature'>{{temperature}}</text>
+      <text class='wea-temperature'>{{temperature}}℃</text>
       <text class='wea-conditions'>{{conditions}} | <text class='wea-air'>空气{{air}}</text></text>
-      <text class='wea-wind'>{{wind}} {{num}}</text>
+      <text class='wea-wind'>{{wind}} {{num}}级</text>
+      <text class='wea-hum'>湿度 {{humidity}}%</text>
     </view>
     <view class='tips'>
       <text class='tips-content'>{{content}}</text>
@@ -22,7 +23,7 @@
         <text class='today-weather day-wea'>{{todayWea}}</text>
       </view>
       <view class='weather-info-right'>
-        <text class='today-temperature day-t'>{{todayTem1}}~{{todayTem2}}</text>
+        <text class='today-temperature day-t'>{{todayTem1}}℃~{{todayTem2}}℃</text>
         <text class='iconfont iconsize {{todayIcon}}'></text>
       </view>
     </view>
@@ -32,7 +33,7 @@
         <text class='tomorrow-weather day-wea'>{{tomorrowWea}}</text>
       </view>
       <view class='weather-info-right'>
-        <text class='tomorrow-temperature day-t'>{{tomorrowTem1}}~{{tomorrowTem2}}</text>
+        <text class='tomorrow-temperature day-t'>{{tomorrowTem1}}℃~{{tomorrowTem2}}℃</text>
         <text class='iconfont iconsize {{tomorrowIcon}}'></text>
       </view>
     </view>
@@ -41,12 +42,13 @@
 
 <view class='container'>
   <view class='weather-hours'>
-    <scroll-view scroll-x scroll-into-view='{{hoursnum}}'>
+    <scroll-view scroll-x >
       <view wx:for="{{hours}}" id='{{item.id}}' class='weather-hours-group' wx:key="item">
         <view class='weather-hours-list'>
           <text>{{item.hour}}</text>
+          <text class='pop' wx-if="{{item.pop >= 55}}" >{{item.pop}}%</text>
           <text class='iconfont iconsize {{item.hoursIcon}}'></text>
-          <text>{{item.hourT}}</text>
+          <text>{{item.hourT}}℃</text>
         </view>
       </view>
     </scroll-view>
@@ -59,11 +61,11 @@
         <text class="data-wea">{{item.wea}}</text>
         <text class='iconfont iconsize {{item.wea_img}}'></text>
         <view class='data-T'>
-          <text class='maxT'>{{item.tem1}}</text>
-          <text class='minT'>{{item.tem2}}</text>
+          <text class='maxT'>{{item.tem1}}℃</text>
+          <text class='minT'>{{item.tem2}}℃</text>
         </view>
         <text class="data-wind">{{item.win}}</text>
-        <text class="data-speed">{{item.win_speed}}</text>
+        <text class="data-speed">{{item.win_speed}}级</text>
       </view>
     </view>
   </view>

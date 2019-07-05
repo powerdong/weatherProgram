@@ -2,6 +2,7 @@
 page{
   font-family: sans-serif;
   background-color: #dff9fb;
+  -webkit-overflow-scrolling: touch
 }
 .container{
   width: 100%;
@@ -69,19 +70,22 @@ page{
 }
 
 /* 风力------------------------------ */
-.weather .wea-wind{
+.weather .wea-wind,
+.weather .wea-hum{
   font-size: 26rpx;
 }
 
 
 /* 温馨提示-------------------------------- */
 .container-top .tips{
-  flex: 4;
+  flex: 3;
   width: 70%;
+  text-align: center;
 }
 
 .tips .tips-content{
   font-size: 30rpx;
+  line-height: 50rpx;
 }
 
 
@@ -133,14 +137,12 @@ page{
 /* 逐小时天气样式--------------------------- */
 .weather-hours {
   background: #fff;
-  padding: 0 20rpx;
+  padding: 0 0 0 20rpx;
   width: 100%;
   white-space: nowrap;
   box-sizing: border-box;
   box-shadow: 0 1px 8rpx #ccc;
 }
-
-/*设置行内块*/
 
 .weather-hours  .weather-hours-group {
   width: 100rpx;
@@ -155,10 +157,18 @@ page{
   font-size: 24rpx;
   text-align: center;
   padding: 20rpx 0;
+  position: relative;
+}
+
+.pop{
+  position: absolute;
+  top:66rpx;
+  left:34rpx;
+  font-size:20rpx;
 }
 
 .weather-hours-list .iconfont{
-  margin: 20rpx 0 ;
+  margin: 40rpx 0 10rpx 0 ;
   font-size: 60rpx;
 }
 
@@ -168,7 +178,7 @@ page{
   width: 100%;
   height: 46%;
   background-color: #fff;
-  margin-top: 30rpx;
+  margin-top: 26rpx;
   box-shadow: 0 1px 8rpx #ccc;
 }
 
@@ -176,8 +186,11 @@ page{
   display: inline-block;
   height: 100%;
   width: 16.6%;
+  transition: 0.5s;
 }
-
+.weather-data .weather-data-group:hover{
+  background-color: rgba(0,0,0,0.2);
+}
 .weather-data-group .weather-data-list{
   display: flex;
   justify-content: space-around;
@@ -268,7 +281,7 @@ page{
 /* 生活贴士-------------- */
 .weather-life{
   width: 100%;
-  margin-top: 30rpx;
+  margin-top: 26rpx;
   box-shadow: 0 1px 8rpx #ccc;
   display: flex;
   flex-wrap:wrap; 
@@ -277,7 +290,7 @@ page{
 }
 
 .weather-life .weather-life-group{
-  width: 250rpx;
+  width: 187rpx;
   height: 180rpx;
   box-sizing: border-box;
   border-right: 1px solid #ccc;
@@ -294,14 +307,14 @@ page{
 
 .weather-life-list .iconfont{
   font-size: 58rpx;
-  margin: 0 0 6rpx 0;
+  margin: 0 0 10rpx 0;
 }
 
 .weather-life-list .life-level{
-  font-size: 28rpx;
+  font-size: 24rpx;
 }
 
 .weather-life-list .life-title{
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: #777;
 }

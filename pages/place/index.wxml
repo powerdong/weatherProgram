@@ -2,8 +2,8 @@
 <view class='container'>
   <view class='search-con'>
     <input placeholder='请输入城市名' type='text' data-text='{{inPlace}}' value='{{inPlace}}' confirm-type='search' class='search' bindinput='exitPlace'></input>
-    <text class='cancel'>取消</text>
-    <view wx:if="{{inPlace}}" data-text='{{cityList}}' class='cityList' bindtap='submitCity'>{{cityList}}</view>
+    <text class='cancel' bindtap='cancel'>取消</text>
+    <view  data-text='{{item.location}}' wx:for="{{cityList}}"  wx:key="{{item}}"class='cityList' bindtap='submitCity'>{{item.location}}</view>
   </view>
   <view class='location'>
     <view>当前定位</view>
@@ -15,4 +15,5 @@
       <view class='hot-place' data-text='{{item.Name}}'bindtap='toNewCity' wx:for="{{hotPlace}}" wx:key="item" >{{item.Name}}</view>
     </view>
   </view>
+  wx:if="{{inPlace}}"
 </view>
