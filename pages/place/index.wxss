@@ -54,15 +54,20 @@
   margin-top: 16rpx;
   color: #333;
 }
-
-.cityList{
+.city-group{
   position: absolute;
   top: 116rpx;
   width: 100%;
   height: 100vh;
-  line-height: 90rpx;
   box-sizing: border-box;
-  padding: 10rpx 30rpx;
-  font-size: 30rpx;
+  padding: 0 20rpx;
   background-color: #fff;
+
+}
+.cityList{
+  line-height: 60rpx;
+  box-sizing: border-box;
+  padding: 10rpx 30rpx;   
+  font-size: 30rpx;
+  border-bottom:1px solid #ccc; 
 }

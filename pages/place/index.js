@@ -5,8 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cityList:[],
-    inPlace:"",
+    cityList: [],
+    inPlace: "",
     place: "上海",
     hotPlace: [{
         "Name": "北京"
@@ -44,7 +44,8 @@ Page({
       {
         "Name": "天津"
       }
-    ]
+    ],
+    timer: null,
   },
 
   /**
@@ -63,45 +64,72 @@ Page({
   toNewCity: function(e) {
     let nowPlace = e.currentTarget.dataset.text;
     wx.navigateTo({
-      url: '../index/index?nowPlace='+ nowPlace,
+      url: '../index/index?nowPlace=' + nowPlace,
     })
   },
-  exitPlace:function(e){
-    var self = this;
+  // 输入框输入事件
+  exitPlace: function(e) {
     let inPlace = e.detail.value;
-    self.setData({
-      inPlace:inPlace,
+    this.setData({
+      inPlace: inPlace,
     })
+    this.search(e);
+    if(!inPlace){
+      this.setData({
+        cityList: [{ 
+          location: "请输入正确的城市名",
+        }]
+      })
+    }
+  },
+  // 做一个节流
+  debounceExit: function(e) {
+    let data = this.data;
+    let self = this;
+    clearTimeout(data.timer);
+    data.timer = null;
+    data.timer = setTimeout(() => {
+      self.exitPlace(e)
+    }, 260)
+  },
+
+  // 请求数据  搜索事件
+  search: function(e) {
+    console.log(e)
+    let self = this;
     wx.request({
       url: 'https://search.heweather.net/find?key=baf8052894ad4601ac4193d229773158&',
       data: {
-        group:"cn",
-        number:"5",
+        group: "cn",
+        number: "5",
         location: e.detail.value
       },
       success: function(e) {
+        let data = e.data.HeWeather6[0];
         self.setData({
-          cityList: e.data.HeWeather6[0].status != "unknown location" ? e.data.HeWeather6[0].basic : [{location:"请输入正确的城市名"}],
+          cityList: data.status != "unknown location" ? data.basic : [{
+            location: "请输入正确的城市名"
+          }],
         })
-          console.log(self.data.cityList);
       },
       fail: (e) => {
         // console.log(e)
       }
     })
-
   },
-  submitCity:function(e){
+  // 提交搜索地名
+  submitCity: function(e) {
     let nowPlace = e.currentTarget.dataset.text;
-    nowPlace = nowPlace.replace("市", "") || nowPlace.replace("区", "") ;
+    nowPlace = nowPlace.replace("市", "") || nowPlace.replace("区", "");
+    
     wx.navigateTo({
       url: '../index/index?nowPlace=' + nowPlace,
     })
   },
-
-  cancel:function(e){
+  // 取消事件
+  cancel: function(e) {
     this.setData({
-      inPlace : ""
+      inPlace: ""
     })
   },
   /**

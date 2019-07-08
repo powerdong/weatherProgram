@@ -1,14 +1,17 @@
 <!--pages/index/index.wxml-->
 <view class='container'>
+  <view class='cover' style='visibility:{{visibility}}' catchtouchmove="myCatchTouch">
+    <text class='iconfont suozi' bindtap='openSet'></text>
+  </view>
   <view class='container-top {{backImg}}'>
     <view class='location' bindtap='changePlace'>
       <text class='iconfont dibiao'></text>
-      <text class='location-place'>{{locationUrban}}</text>
+      <text class='location-place'>{{locationUrban}} {{locationArea}}</text>
       <view class='update-time'>上次更新时间 {{updateTime}}</view>
     </view>
     <view class='weather'>
       <text class='wea-temperature'>{{temperature}}℃</text>
-      <text class='wea-conditions'>{{conditions}} | <text class='wea-air'>空气{{air}}</text></text>
+      <text class='wea-conditions'>{{conditions}} | <text class='wea-air'>空气 {{air}}</text></text>
       <text class='wea-wind'>{{wind}} {{num}}级</text>
       <text class='wea-hum'>湿度 {{humidity}}%</text>
     </view>
@@ -40,13 +43,13 @@
   </view>
 </view>
 
-<view class='container'>
+<view class='container' wx:if="{{getlocation}}">
   <view class='weather-hours'>
     <scroll-view scroll-x >
       <view wx:for="{{hours}}" id='{{item.id}}' class='weather-hours-group' wx:key="item">
         <view class='weather-hours-list'>
           <text>{{item.hour}}</text>
-          <text class='pop' wx-if="{{item.pop >= 55}}" >{{item.pop}}%</text>
+          <text class='pop' wx-if="{{item.hourIcon === 'yu' && item.pop >= 55}}" >{{item.pop}}%</text>
           <text class='iconfont iconsize {{item.hoursIcon}}'></text>
           <text>{{item.hourT}}℃</text>
         </view>

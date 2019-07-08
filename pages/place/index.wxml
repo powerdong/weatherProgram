@@ -1,9 +1,11 @@
 <!--pages/place/index.wxml-->
 <view class='container'>
   <view class='search-con'>
-    <input placeholder='请输入城市名' type='text' data-text='{{inPlace}}' value='{{inPlace}}' confirm-type='search' class='search' bindinput='exitPlace'></input>
+    <input placeholder='请输入城市名' type='text' data-text='{{inPlace}}' value='{{inPlace}}' confirm-type='search' class='search' bindinput='debounceExit'></input>
     <text class='cancel' bindtap='cancel'>取消</text>
-    <view  data-text='{{item.location}}' wx:for="{{cityList}}"  wx:key="{{item}}"class='cityList' bindtap='submitCity'>{{item.location}}</view>
+    <view class='city-group' wx:if="{{inPlace}}">
+    <view   data-text='{{item.location}}' wx:for="{{cityList}}"  wx:key="{{item}}"class='cityList' bindtap='submitCity'>{{item.admin_area}}  {{item.location}}</view>
+    </view>
   </view>
   <view class='location'>
     <view>当前定位</view>
@@ -15,5 +17,5 @@
       <view class='hot-place' data-text='{{item.Name}}'bindtap='toNewCity' wx:for="{{hotPlace}}" wx:key="item" >{{item.Name}}</view>
     </view>
   </view>
-  wx:if="{{inPlace}}"
+  
 </view>
