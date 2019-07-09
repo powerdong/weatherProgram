@@ -4,7 +4,7 @@
     <input placeholder='请输入城市名' type='text' data-text='{{inPlace}}' value='{{inPlace}}' confirm-type='search' class='search' bindinput='debounceExit'></input>
     <text class='cancel' bindtap='cancel'>取消</text>
     <view class='city-group' wx:if="{{inPlace}}">
-    <view   data-text='{{item.location}}' wx:for="{{cityList}}"  wx:key="{{item}}"class='cityList' bindtap='submitCity'>{{item.admin_area}}  {{item.location}}</view>
+    <view data-lat='{{item.lat}}' data-lon='{{item.lon}}' data-text='{{item.location}}' wx:for="{{cityList}}"  wx:key="{{item}}"class='cityList' bindtap='submitCity'>{{item.admin_area}}  {{item.location}}</view>
     </view>
   </view>
   <view class='location'>

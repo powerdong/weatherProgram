@@ -39,7 +39,7 @@ page{
 /* 位置信息--------------------------- */
 .container-top .location{
   flex: 2;
-  margin-top: 30rpx;
+  margin-top: 90rpx;
   font-size: 48rpx;
   text-align: center;
 }

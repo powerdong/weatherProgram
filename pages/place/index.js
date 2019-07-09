@@ -95,7 +95,6 @@ Page({
 
   // 请求数据  搜索事件
   search: function(e) {
-    console.log(e)
     let self = this;
     wx.request({
       url: 'https://search.heweather.net/find?key=baf8052894ad4601ac4193d229773158&',
@@ -120,11 +119,14 @@ Page({
   // 提交搜索地名
   submitCity: function(e) {
     let nowPlace = e.currentTarget.dataset.text;
+    let nowLat = e.currentTarget.dataset.lat;
+    let nowLon = e.currentTarget.dataset.lon;
     nowPlace = nowPlace.replace("市", "") || nowPlace.replace("区", "");
     
     wx.navigateTo({
-      url: '../index/index?nowPlace=' + nowPlace,
+      url: '../index/index?nowPlace=' + nowPlace+'&nowLat='+nowLat+'&nowLon='+ nowLon,
     })
+    this.cancel()
   },
   // 取消事件
   cancel: function(e) {

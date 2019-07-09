@@ -1,6 +1,6 @@
 // pages/index/index.js
 // 引入SDK核心类
-var QQMapWX = require('../../qqmap-wx-jssdk.js');
+var QQMapWX = require('../../qqmap-wx-jssdk.min.js');
 
 // 实例化API核心类
 var qqmapsdk = new QQMapWX({
@@ -9,12 +9,15 @@ var qqmapsdk = new QQMapWX({
 
 var place;
 
+const Http = "https://free-api.heweather.net/s6/"
+const weatherKey = "key=baf8052894ad4601ac4193d229773158&"
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    visibility:'hidden',
+    visibility: 'hidden',
     hours: [{
       id: "hours8",
       hour: "08:00",
@@ -185,7 +188,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.stopPullDownRefresh() //刷新完成后停止下拉刷新动效
     let self = this;
     let latitude = null;
     let longitude = null;
@@ -194,24 +196,24 @@ Page({
         if (res.authSetting['scope.userLocation']) {
           // 同意请求地理位置
           self.setData({
-            visibility:"hidden",
+            visibility: "hidden",
             getlocation: true
           })
           if (!options.nowPlace) {
             // 页面地理位置信息展示
-            self.changeLoaction(res.latitude, res.longitude);
+            self.changeLoaction();
           } else {
             self.setData({
               locationUrban: options.nowPlace
             })
+            // 初始化页面
+            self.pageInfo(options)
           }
-          // 初始化页面
-          self.pageInfo(options)
         } else {
           wx.getLocation({
             success: function(res) {
               self.setData({
-                visibility:"hidden",
+                visibility: "hidden",
                 getlocation: true
               })
               if (!options.nowPlace) {
@@ -221,14 +223,14 @@ Page({
                 self.setData({
                   locationUrban: options.nowPlace
                 })
+                self.pageInfo(options)
               }
               // 初始化页面
-              self.pageInfo(options)
             },
             fail: function(res) {
               // 需要有一个弹层 让用户跳转到设置页面设置开启位置服务
               self.setData({
-                visibility:"visible"
+                visibility: "visible"
               })
             }
           })
@@ -237,24 +239,23 @@ Page({
     })
 
   },
-
-  pageInfo:function(options = {}){
+  pageInfo: function(options = {}, latitude, longitude) {
+    const location = options.nowPlace ? options.nowPlace : latitude + "," + longitude;
     // 现在的空气指数
-    this.nowWeatherAir(options);
+    this.nowWeatherAir(location);
     // 现在的天气状况
-    this.nowWeatherconditions(options);
+    this.nowWeatherconditions(location);
     // 未来的天气情况
-    this.futureWeather(options);
+    this.futureWeather(location);
     // 逐小时天气情况
-    this.hoursWeather(options);
+    this.hoursWeather(location);
     // 生活指数
-    this.livingIndex(options);
+    this.livingIndex(location);
   },
   /**
-  * 生命周期函数--监听页面显示
-  */
-  onShow: function () {
-  },
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {},
   // 前往设置页面打开位置服务的点击事件
   openSet: function() {
     let self = this;
@@ -267,15 +268,14 @@ Page({
       }
     })
   },
- 
-  myCatchTouch:function(){
+
+  myCatchTouch: function() {
     return false;
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-  },
+  onReady: function() {},
 
 
   /**
@@ -300,7 +300,6 @@ Page({
     wx.showNavigationBarLoading()
     this.changeLoaction();
     // 初始化页面
-    this.pageInfo()
     setTimeout(() => {
       // 标题栏隐藏刷新转圈圈图标
       wx.hideNavigationBarLoading()
@@ -331,13 +330,16 @@ Page({
     qqmapsdk.reverseGeocoder({      
       //位置坐标，默认获取当前位置
       //Object格式 
-      location:latitude && longitude ? latitude + ',' + longitude:"",
+      location: latitude && longitude ? latitude + ',' + longitude : "",
       success: function(res) {
+        let loc = res.result.ad_info.location;
+        let options = {};
+        self.pageInfo(options, loc.lat, loc.lng)
         let location = res.result.address_component;
         let obj = {};
         self.setData({
-          locationUrban: location.city,
-          locationArea: location.district
+          locationUrban: location.district,
+          locationArea: location.street
         })
       }
     });
@@ -347,32 +349,31 @@ Page({
    * 方法函数区
    */
   // 现在的空气指数（良  优）
-  nowWeatherAir: function(options) {
+  nowWeatherAir: function(location) {
     let self = this;
     wx.request({
-      url: 'https://free-api.heweather.net/s6/air/now?key=baf8052894ad4601ac4193d229773158&',
+      url: Http+'air/now?'+weatherKey,
       data: {
-        location: options.nowPlace ? "" + options.nowPlace : "auto_ip"
+        location,
       },
       success: function(res) {
         let weatherAir = res.data.HeWeather6[0].air_now_city;
-        if (weatherAir) {
-          self.setData({
-            air: weatherAir.qlty,
-          })
-        }
+        self.setData({
+          air: weatherAir ? weatherAir.qlty : "良",
+        })
+
       }
     })
   },
   // 现在的天气情况  首屏信息
-  nowWeatherconditions: function(options) {
+  nowWeatherconditions: function(location) {
     let self = this;
     let hour = new Date().getHours();
     let timeReg = /\d\d:\d\d/;
     wx.request({
-      url: 'https://free-api.heweather.net/s6/weather/now?key=baf8052894ad4601ac4193d229773158&',
+      url: Http+'weather/now?'+weatherKey,
       data: {
-        location: options.nowPlace ? "" + options.nowPlace : "auto_ip"
+        location
       },
       success(res) {
         let weatherData = res.data.HeWeather6[0];
@@ -401,12 +402,12 @@ Page({
     });
   },
   // 一周的天气情况  包括今天 明天信息展示 和未来天气展示
-  futureWeather: function(options) {
+  futureWeather: function(location) {
     let self = this;
     wx.request({
-      url: 'https://free-api.heweather.net/s6/weather/forecast?key=baf8052894ad4601ac4193d229773158&',
+      url: Http+'weather/forecast?'+weatherKey,
       data: {
-        location: options.nowPlace ? "" + options.nowPlace : "auto_ip"
+        location
       },
       success(res) {
         let weatherWeek = res.data.HeWeather6[0].daily_forecast;
@@ -433,12 +434,12 @@ Page({
     });
   },
   // 逐小时天气情况展示
-  hoursWeather: function(options) {
+  hoursWeather: function(location) {
     let self = this;
     wx.request({
-      url: 'https://free-api.heweather.net/s6/weather/hourly?key=baf8052894ad4601ac4193d229773158&',
+      url: Http+'weather/hourly?'+weatherKey,
       data: {
-        location: options.nowPlace ? "" + options.nowPlace : "auto_ip"
+        location
       },
       success(res) {
         let weatherHours = res.data.HeWeather6[0].hourly;
@@ -451,12 +452,12 @@ Page({
       }
     });
   },
-  livingIndex: function(options) {
+  livingIndex: function(location) {
     let self = this;
     wx.request({
-      url: 'https://free-api.heweather.net/s6/weather/lifestyle?key=baf8052894ad4601ac4193d229773158&',
+      url: Http+'weather/lifestyle?'+weatherKey,
       data: {
-        location: options.nowPlace ? "" + options.nowPlace : "auto_ip"
+        location
       },
       success: function(res) {
         let serverlifeWeather = res.data.HeWeather6[0].lifestyle;
