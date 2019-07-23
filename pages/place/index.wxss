@@ -33,17 +33,17 @@
   margin-right: 33rpx;
 }
 
-.location, 
-.hot-location {
+.location, .hot-location {
   padding: 30rpx;
 }
-.place-group{
+
+.place-group {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
 }
-.hot-place{
+
+.hot-place {
   width: 30%;
   height: 70rpx;
   background-color: #ddd;
@@ -54,7 +54,8 @@
   margin-top: 16rpx;
   color: #333;
 }
-.city-group{
+
+.city-group {
   position: absolute;
   top: 116rpx;
   width: 100%;
@@ -62,12 +63,12 @@
   box-sizing: border-box;
   padding: 0 20rpx;
   background-color: #fff;
-
 }
-.cityList{
+
+.cityList {
   line-height: 60rpx;
   box-sizing: border-box;
-  padding: 10rpx 30rpx;   
+  padding: 10rpx 30rpx;
   font-size: 30rpx;
-  border-bottom:1px solid #ccc; 
+  border-bottom: 1px solid #ccc;
 }

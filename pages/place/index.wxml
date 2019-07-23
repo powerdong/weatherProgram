@@ -1,10 +1,10 @@
 <!--pages/place/index.wxml-->
 <view class='container'>
   <view class='search-con'>
-    <input placeholder='请输入城市名' type='text' data-text='{{inPlace}}' value='{{inPlace}}' confirm-type='search' class='search' bindinput='debounceExit'></input>
+    <input placeholder='请输入城市名' type='text' focus="true" data-text='{{inPlace}}' value='{{inPlace}}' confirm-type='search' class='search' bindinput='debounceExit'></input>
     <text class='cancel' bindtap='cancel'>取消</text>
     <view class='city-group' wx:if="{{inPlace}}">
-    <view data-lat='{{item.lat}}' data-lon='{{item.lon}}' data-text='{{item.location}}' wx:for="{{cityList}}"  wx:key="{{item}}"class='cityList' bindtap='submitCity'>{{item.admin_area}}  {{item.location}}</view>
+      <view data-lat='{{item.lat}}' data-lon='{{item.lon}}' data-text='{{item.location}}' wx:for="{{cityList}}" wx:key="{{item}}" class='cityList' bindtap='submitCity'>{{item.admin_area}} {{item.location}}</view>
     </view>
   </view>
   <view class='location'>
@@ -14,8 +14,7 @@
   <view class='hot-location'>
     <view>热门城市</view>
     <view class='place-group'>
-      <view class='hot-place' data-text='{{item.Name}}'bindtap='toNewCity' wx:for="{{hotPlace}}" wx:key="item" >{{item.Name}}</view>
+      <view class='hot-place' data-text='{{item.Name}}' bindtap='toNewCity' wx:for="{{hotPlace}}" wx:key="item">{{item.Name}}</view>
     </view>
   </view>
-  
 </view>

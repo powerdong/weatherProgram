@@ -45,7 +45,6 @@ Page({
         "Name": "天津"
       }
     ],
-    timer: null,
   },
 
   /**
@@ -82,13 +81,13 @@ Page({
       })
     }
   },
-  // 做一个节流
+  // 做一个防抖
   debounceExit: function(e) {
-    let data = this.data;
     let self = this;
-    clearTimeout(data.timer);
-    data.timer = null;
-    data.timer = setTimeout(() => {
+    let timer = null;
+    clearTimeout(timer);
+    timer = null;
+    timer = setTimeout(() => {
       self.exitPlace(e)
     }, 260)
   },

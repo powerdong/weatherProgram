@@ -78,8 +78,10 @@ Page({
       wea_img: "lei",
       win: "微风",
       win_speed: "3级",
-      tem1: "27℃",
-      tem2: "21℃"
+      tem1: "27",
+      tem1P: "3",
+      tem2: "21",
+      tem2P: "2"
     }, {
       day: "后天",
       date: "06/27",
@@ -87,8 +89,8 @@ Page({
       wea_img: "wu",
       win: "微风",
       win_speed: "3级",
-      tem1: "27℃",
-      tem2: "21℃"
+      tem1: "27",
+      tem2: "21"
     }, {
       day: "明天",
       date: "06/27",
@@ -96,8 +98,8 @@ Page({
       wea_img: "shachen",
       win: "微风",
       win_speed: "3级",
-      tem1: "27℃",
-      tem2: "21℃"
+      tem1: "27",
+      tem2: "21"
     }, {
       day: "明天",
       date: "06/27",
@@ -105,8 +107,8 @@ Page({
       wea_img: "bingbao",
       win: "微风",
       win_speed: "3级",
-      tem1: "27℃",
-      tem2: "21℃"
+      tem1: "27",
+      tem2: "21"
     }, {
       day: "明天",
       date: "06/27",
@@ -114,8 +116,8 @@ Page({
       wea_img: "yin",
       win: "微风",
       win_speed: "3级",
-      tem1: "27℃",
-      tem2: "21℃"
+      tem1: "27",
+      tem2: "21"
     }, {
       day: "明天",
       date: "06/27",
@@ -123,8 +125,8 @@ Page({
       wea_img: "qing",
       win: "微风",
       win_speed: "3级",
-      tem1: "27℃",
-      tem2: "21℃"
+      tem1: "27",
+      tem2: "21"
     }],
     weatherLife: [{
         lifeIcon: "xiao",
@@ -300,12 +302,6 @@ Page({
     wx.showNavigationBarLoading()
     this.changeLoaction();
     // 初始化页面
-    setTimeout(() => {
-      // 标题栏隐藏刷新转圈圈图标
-      wx.hideNavigationBarLoading()
-      wx.stopPullDownRefresh();
-
-    }, 2000);
 
   },
 
@@ -341,6 +337,8 @@ Page({
           locationUrban: location.district,
           locationArea: location.street
         })
+        wx.hideNavigationBarLoading()
+        wx.stopPullDownRefresh();
       }
     });
   },
@@ -352,7 +350,7 @@ Page({
   nowWeatherAir: function(location) {
     let self = this;
     wx.request({
-      url: Http+'air/now?'+weatherKey,
+      url: Http + 'air/now?' + weatherKey,
       data: {
         location,
       },
@@ -371,7 +369,7 @@ Page({
     let hour = new Date().getHours();
     let timeReg = /\d\d:\d\d/;
     wx.request({
-      url: Http+'weather/now?'+weatherKey,
+      url: Http + 'weather/now?' + weatherKey,
       data: {
         location
       },
@@ -405,7 +403,7 @@ Page({
   futureWeather: function(location) {
     let self = this;
     wx.request({
-      url: Http+'weather/forecast?'+weatherKey,
+      url: Http + 'weather/forecast?' + weatherKey,
       data: {
         location
       },
@@ -437,7 +435,7 @@ Page({
   hoursWeather: function(location) {
     let self = this;
     wx.request({
-      url: Http+'weather/hourly?'+weatherKey,
+      url: Http + 'weather/hourly?' + weatherKey,
       data: {
         location
       },
@@ -455,7 +453,7 @@ Page({
   livingIndex: function(location) {
     let self = this;
     wx.request({
-      url: Http+'weather/lifestyle?'+weatherKey,
+      url: Http + 'weather/lifestyle?' + weatherKey,
       data: {
         location
       },
@@ -506,6 +504,22 @@ Page({
     }
     return backImg;
   },
+  // 温度排序
+  sortTem: function(toSort) {
+    let resArray = toSort.slice(0);
+    for (var i = 0; i < resArray.length; i++) {
+      resArray[i] = [resArray[i], i];
+    }
+    resArray.sort(function(left, right) {
+      return left[0] < right[0] ? -1 : 1;
+    });
+    resArray.sortIndices = [];
+    for (var j = 0; j < resArray.length; j++) {
+      resArray.sortIndices.push(resArray[j][1]);
+      resArray[j] = resArray[j][0];
+    }
+    return resArray;
+  },
   assignment: function(localWeather, serverWeatherData) {
     for (let i = 0; i < serverWeatherData.length; i++) {
       if (i == 0) {
@@ -520,16 +534,37 @@ Page({
       weekday = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
       serverWeatherData[i].day = weekday[data];
     };
+    const temMax = [],
+      temMin = [];
     for (let i = 0; i < serverWeatherData.length; i++) {
       localWeather[i].date = (serverWeatherData[i].date.split("-")[1]) + "/" + (serverWeatherData[i].date.split("-")[2]);
       localWeather[i].wea = serverWeatherData[i].cond_txt_d;
       localWeather[i].wea_img = this.setImg(serverWeatherData[i].cond_txt_d);
-      localWeather[i].tem1 = serverWeatherData[i].tmp_max;
-      localWeather[i].tem2 = serverWeatherData[i].tmp_min;
       localWeather[i].win = serverWeatherData[i].wind_dir === "无持续风向" ? "微风" : serverWeatherData[i].wind_dir;
       localWeather[i].win_speed = serverWeatherData[i].wind_sc;
+      temMax.push(serverWeatherData[i].tmp_max);
+      temMin.push(serverWeatherData[i].tmp_min);
     }
-
+    var Maxtem =  this.setTemPostion(temMax)
+    var Mintem =  this.setTemPostion(temMin)
+    for (let i = 0; i < serverWeatherData.length; i++) {
+      localWeather[i].tem1 = Maxtem[i][0];
+      localWeather[i].tem1P = Maxtem[i][1];
+      localWeather[i].tem2 = Mintem[i][0];
+      localWeather[i].tem2P = Mintem[i][1];
+    }
+  },
+  setTemPostion: function(tem) {
+    // 根据温度排序设置温度的位置
+    // 排序的下标
+    // 函数返回一个二维数组
+    // 第一位存放温度  第二位存放排序信息
+    var index = this.sortTem(tem).sortIndices;
+    for (let i = 0; i < tem.length; i++) {
+      let j = index[i];
+      tem[j] = [tem[j], i];
+    }
+    return tem;
   },
   lifeWeather: function(locallifeWeather, serverlifeWeather) {
     let lifeStyle = ["舒适度", "穿衣", "感冒", "运动", "旅游", "紫外线", "洗车", "空气污染"];

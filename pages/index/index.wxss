@@ -193,7 +193,6 @@ page{
 
 .weather-data{
   width: 100%;
-  height: 46%;
   background-color: #fff;
   margin-top: 26rpx;
   box-shadow: 0 1px 8rpx #ccc;
@@ -255,8 +254,9 @@ page{
 
 .data-T .maxT{
   position: absolute;
-  top: 0rpx;
+  /* top: 0rpx; */
   color: #f39c12;
+  transform: translateY(20rpx);
 }
 
 .data-T .maxT::after{
@@ -271,8 +271,8 @@ page{
 }
 
 .data-T .minT{
-  position: absolute;
-  bottom: 0rpx;
+  /* position: absolute; */
+  /* bottom: 0rpx; */
   color: #3498db;
 }
 

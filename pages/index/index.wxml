@@ -64,8 +64,8 @@
         <text class="data-wea">{{item.wea}}</text>
         <text class='iconfont iconsize {{item.wea_img}}'></text>
         <view class='data-T'>
-          <text class='maxT'>{{item.tem1}}℃</text>
-          <text class='minT'>{{item.tem2}}℃</text>
+          <text class='maxT' style="position:absolute; top:{{-item.tem1P*6 }}rpx;">{{item.tem1}}℃</text>
+          <text class='minT' style="position:absolute; bottom: {{item.tem2P * 6 }}rpx;">{{item.tem2}}℃</text>
         </view>
         <text class="data-wind">{{item.win}}</text>
         <text class="data-speed">{{item.win_speed}}级</text>
