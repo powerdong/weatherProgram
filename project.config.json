@@ -13,7 +13,7 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.2",
+	"libVersion": "2.8.0",
 	"appid": "wxd2a5e19f999adba6",
 	"projectname": "weixin",
 	"debugOptions": {

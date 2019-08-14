@@ -534,6 +534,7 @@ Page({
       weekday = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
       serverWeatherData[i].day = weekday[data];
     };
+      console.log(serverWeatherData[2].day)
     const temMax = [],
       temMin = [];
     for (let i = 0; i < serverWeatherData.length; i++) {
@@ -542,6 +543,7 @@ Page({
       localWeather[i].wea_img = this.setImg(serverWeatherData[i].cond_txt_d);
       localWeather[i].win = serverWeatherData[i].wind_dir === "无持续风向" ? "微风" : serverWeatherData[i].wind_dir;
       localWeather[i].win_speed = serverWeatherData[i].wind_sc;
+      localWeather[i].day = serverWeatherData[i].day;
       temMax.push(serverWeatherData[i].tmp_max);
       temMin.push(serverWeatherData[i].tmp_min);
     }
