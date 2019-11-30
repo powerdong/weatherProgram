@@ -523,10 +523,10 @@ Page({
   assignment: function(localWeather, serverWeatherData) {
     for (let i = 0; i < serverWeatherData.length; i++) {
       if (i == 0) {
-        serverWeatherData[i].day = "今天";
+        serverWeatherData[i].day = "明天";
         continue;
       } else if (i == 1) {
-        serverWeatherData[i].day = "明天";
+        serverWeatherData[i].day = "后天";
         continue;
       }
       let data = new Date(this.week(serverWeatherData[i].date)).getDay();
